@@ -1,0 +1,1893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahjong Mazaa | The Single-Page Mockup</title>
+    <meta name="description" content="Mahjong Mazaa single-page presentation combining all site sections for a complete visual mockup with internal navigation.">
+    <link rel="icon" type="image/png" href="MM_Logo_NoWords.png">
+    
+    <!-- Consolidated CSS -->
+    <style>
+        /* Mahjong Mazaa - Main Stylesheet */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --mazaa-cream: #E8E4DD;
+            --chai-gold: #C9A875;
+            --mahjong-teal: #2C5F6F;
+            --rich-brown: #4A3C2F;
+            --soft-terracotta: #D4917B;
+            --sage-green: #A8B5A8;
+            --warm-white: #FAF8F5;
+            --deep-charcoal: #3A3A3A;
+            --medium-gray: #666666;
+            
+            --font-serif: 'Georgia', 'Libre Baskerville', serif;
+            --font-sans: 'Arial', 'Montserrat', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--warm-white);
+            color: var(--deep-charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-serif);
+            line-height: 1.2;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: var(--mazaa-cream);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-weight: bold;
+            color: var(--rich-brown);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .logo:hover {
+            color: var(--chai-gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--rich-brown);
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            cursor: pointer; /* Ensure link appearance on click */
+        }
+
+        .nav-links a:hover {
+            color: var(--chai-gold);
+        }
+
+        .nav-links a.active-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: var(--chai-gold);
+        }
+
+        /* Mobile Menu Toggle */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--rich-brown);
+            cursor: pointer;
+        }
+        
+        /* New: Page Content Management */
+        .page-content {
+            min-height: 80vh;
+            display: none; /* All pages hidden by default, shown by JS */
+        }
+        
+        .page-content.active {
+            display: block;
+        }
+        
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--chai-gold);
+            color: var(--warm-white);
+        }
+
+        .btn-primary:hover {
+            background-color: #B39565;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(201, 168, 117, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--chai-gold);
+            border: 2px solid var(--chai-gold);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--chai-gold);
+            color: var(--warm-white);
+        }
+
+        .btn-large {
+            padding: 18px 40px;
+            font-size: 18px;
+        }
+
+        /* Hero Sections */
+        .hero {
+            background: linear-gradient(135deg, var(--mazaa-cream) 0%, #F5F2ED 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero-small {
+            padding: 80px 0 60px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            color: var(--rich-brown);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .hero-small h1 {
+            font-size: 48px;
+        }
+
+        .hero .tagline {
+            font-size: 32px;
+            color: var(--chai-gold);
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .hero .subtitle {
+            font-size: 24px;
+            color: var(--mahjong-teal);
+            font-style: italic;
+            margin-bottom: 30px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--medium-gray);
+            max-width: 800px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
+        }
+
+        /* Section Styling */
+        .page-section { /* Renamed 'section' to 'page-section' to avoid conflict */
+            padding: 80px 0;
+        }
+
+        .section-alt {
+            background-color: #FFFFFF;
+        }
+
+        .section-gradient {
+            background: linear-gradient(to bottom, var(--warm-white) 0%, var(--mazaa-cream) 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 48px;
+            color: var(--rich-brown);
+            margin-bottom: 20px;
+        }
+
+        .section-header .subtitle {
+            font-size: 24px;
+            color: var(--mahjong-teal);
+            font-style: italic;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--medium-gray);
+            max-width: 800px;
+            margin: 20px auto 0;
+            line-height: 1.7;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 60px;
+            align-items: flex-start; /* Changed from center for contact page layout */
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--warm-white);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            color: var(--mahjong-teal);
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: var(--medium-gray);
+            font-size: 16px;
+            line-height: 1.7;
+        }
+        
+        .card .social-links { /* Specificity for contact card */
+             justify-content: flex-start;
+        }
+
+        .card-feature {
+            background-color: #FFFFFF;
+            border-left: 5px solid var(--chai-gold);
+        }
+        
+        /* Specific History Timeline Styling */
+        .timeline {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .timeline-item {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 60px;
+            align-items: flex-start;
+        }
+        
+        .timeline-date {
+            background-color: var(--chai-gold);
+            color: var(--warm-white);
+            padding: 18px 28px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 20px;
+            min-width: 140px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            background-color: #FFFFFF;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+        }
+        
+        .timeline-content h3 {
+            color: var(--mahjong-teal);
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        /* Product Specific Styling */
+        .product-card {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+        }
+        .product-card img {
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .product-card h3 {
+            color: var(--rich-brown);
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+        .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--mahjong-teal);
+            margin-bottom: 20px;
+        }
+        
+        /* Image Placeholders */
+        .image-placeholder {
+            background-color: var(--mazaa-cream);
+            height: 400px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--chai-gold);
+            font-size: 18px;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+        .image-placeholder img {
+            width:100%; 
+            height:100%; 
+            border-radius: 10px; 
+            object-fit: cover;
+        }
+
+        /* Quote Blocks */
+        .quote-block {
+            max-width: 800px;
+            margin: 60px auto;
+            text-align: center;
+            font-family: var(--font-serif);
+            font-size: 28px;
+            font-style: italic;
+            color: var(--chai-gold);
+            line-height: 1.6;
+        }
+
+        .quote-block cite {
+            display: block;
+            margin-top: 20px;
+            font-size: 18px;
+            color: var(--medium-gray);
+            font-style: normal;
+        }
+
+        /* Decorative Elements */
+        .ornament {
+            text-align: center;
+            font-size: 36px;
+            color: var(--chai-gold);
+            margin: 40px 0;
+        }
+
+        /* Lists */
+        .styled-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .styled-list li {
+            padding-left: 30px;
+            margin-bottom: 15px;
+            position: relative;
+            color: var(--medium-gray);
+        }
+
+        .styled-list li::before {
+            content: "•";
+            color: var(--chai-gold);
+            font-weight: bold;
+            font-size: 24px;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* Forms & Contact */
+        .form-container { /* Used for single-column form */
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--rich-brown);
+            font-weight: 600;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--mazaa-cream);
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: var(--font-sans);
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--chai-gold);
+        }
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+        /* Custom Message Box Style */
+        #statusMessage, #contactStatusMessage {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            display: none; 
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--rich-brown);
+            color: var(--mazaa-cream);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--chai-gold);
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-section p,
+        .footer-section a {
+            color: var(--mazaa-cream);
+            text-decoration: none;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .footer-section a:hover {
+            color: var(--chai-gold);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(232, 228, 221, 0.3);
+            color: #999999;
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(201, 168, 117, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--chai-gold);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+            
+            .hero-small h1 {
+                font-size: 36px;
+            }
+            
+            .hero .tagline {
+                font-size: 24px;
+            }
+            
+            .section-header h2 {
+                font-size: 36px;
+            }
+            
+            .grid-2,
+            .grid-3,
+            .grid-4,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: var(--mazaa-cream);
+                padding: 20px;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .mobile-menu-toggle {
+                display: block;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-date {
+                min-width: unset;
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .mock-success {
+             background-color: var(--sage-green);
+             color: var(--warm-white);
+        }
+        
+        .mock-error {
+             background-color: var(--soft-terracotta);
+             color: var(--warm-white);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation (Static across all "pages") -->
+    <header>
+        <div class="container">
+            <nav>
+                <!-- Link back to home section -->
+                <a href="#home-page" class="logo" data-page-id="home-page" style="display: flex; align-items: center;">
+                    <img src="MM_Logo_WithWords.png" alt="Mahjong Mazaa Logo" style="height: 50px; width: auto;">
+                </a>
+                <button class="mobile-menu-toggle">☰</button>
+                <ul class="nav-links">
+                    <li><a href="#home-page" data-page-id="home-page">Home</a></li>
+                    <li><a href="#our-story-page" data-page-id="our-story-page">Our Story</a></li>
+                    <li><a href="#the-history-page" data-page-id="the-history-page">The History</a></li>
+                    <li><a href="#how-to-play-page" data-page-id="how-to-play-page">How to Play</a></li>
+                    <li><a href="#shop-page" data-page-id="shop-page">Shop</a></li>
+                    <li><a href="#community-page" data-page-id="community-page">Community</a></li>
+                    <li><a href="#faq-page" data-page-id="faq-page">FAQ</a></li>
+                    <li><a href="#contact-page" data-page-id="contact-page" class="btn btn-primary" style="padding: 10px 25px;">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content Wrapper -->
+    <main>
+        
+        <!-- ============================================== -->
+        <!-- 1. HOME PAGE CONTENT (index.html) -->
+        <!-- ============================================== -->
+        <section id="home-page" class="page-content active">
+            <!-- Hero Section -->
+            <div class="hero">
+                <div class="container">
+                    <img src="MM_TileSet_Hero_v01.jpg" alt="Mahjong Mazaa Tile Set" style="max-width: 100%; height: auto; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                    <h1>Mahjong Mazaa</h1>
+                    <p class="tagline">A ritual that gathers. A table that welcomes.</p>
+                    <p>
+                        Mahjong tiles designed with cultural resonance and hospitality.<br>
+                        From Chinese origins to American evolution to South Asian homes—<br>
+                        the game continues its journey.
+                    </p>
+                    <a href="#shop-page" class="btn btn-primary btn-large" data-page-id="shop-page">Discover Our Tiles</a>
+                    <a href="#our-story-page" class="btn btn-secondary btn-large" style="margin-left: 15px;" data-page-id="our-story-page">Our Story</a>
+                </div>
+            </div>
+
+            <!-- Featured Message -->
+            <div class="page-section section-alt">
+                <div class="container">
+                    <div class="quote-block">
+                        "The bridge, not the claim"
+                        <cite>— Our commitment to cultural respect and hospitality</cite>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What We Are Section -->
+            <div class="page-section section-gradient">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>What Mahjong Mazaa Is</h2>
+                        <p class="subtitle">A cultural bridge through play</p>
+                    </div>
+                    <div class="grid-2">
+                        <div>
+                            <h3 style="color: var(--mahjong-teal); font-size: 28px; margin-bottom: 20px;">Same Game. New Aesthetic. Your Table.</h3>
+                            <p style="font-size: 18px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 20px;">
+                                We're not reinventing mahjong. We're not claiming it as "ours." We're creating a cultural bridge—tiles designed with a South Asian aesthetic that makes this beautiful game feel familiar to new communities.
+                            </p>
+                            <p style="font-size: 18px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 20px;">
+                                The rules are the same. The strategy is the same. The joy of gathering is the same. What's different is the cultural resonance—tiles that feel at home on South Asian tables, alongside chai or coffee, amidst multigenerational conversation.
+                            </p>
+                            <a href="#our-story-page" class="btn btn-secondary" data-page-id="our-story-page">Read Our Full Story</a>
+                        </div>
+                        <div class="image-placeholder" style="height: auto; padding: 0; background: none; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                            <img src="MM_Multigenerational_Table_v01.jpg" alt="Multigenerational family playing Mahjong Mazaa" style="width:100%; height:auto; border-radius: 10px; object-fit: cover;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Values -->
+            <div class="page-section section-alt">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Our Commitment</h2>
+                    </div>
+                    <div class="grid-3">
+                        <div class="card card-feature">
+                            <h3>We Honor</h3>
+                            <ul class="styled-list">
+                                <li>Chinese origins and cultural heritage</li>
+                                <li>The game's evolution across continents</li>
+                                <li>Complex histories without erasure</li>
+                                <li>Original creators and communities</li>
+                            </ul>
+                        </div>
+                        <div class="card card-feature">
+                            <h3>We Acknowledge</h3>
+                            <ul class="styled-list">
+                                <li>The racism of the 1920s American fad</li>
+                                <li>Orientalist marketing and appropriation</li>
+                                <li>Ongoing tensions around cultural exchange</li>
+                                <li>Our responsibility as bridge-builders</li>
+                            </ul>
+                        </div>
+                        <div class="card card-feature">
+                            <h3>We Welcome</h3>
+                            <ul class="styled-list">
+                                <li>South Asian communities through resonance</li>
+                                <li>Multigenerational tables and gatherings</li>
+                                <li>Authentic hospitality, not exoticism</li>
+                                <li>New stories at ancient tables</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ornament">⁂</div>
+
+            <!-- Product Preview -->
+            <div class="page-section section-gradient">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>The Mahjong Mazaa Tile Set</h2>
+                        <p class="subtitle">Premium tiles. Thoughtful design. Complete cultural context.</p>
+                    </div>
+                    <div class="grid-2" style="align-items: center;">
+                        <div class="image-placeholder" style="height: 500px; padding: 0; background: none; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                            <img src="MM_Lifestyle_GameplayScene_v01.jpg" alt="Mahjong Mazaa tile set in lifestyle setting" style="width:100%; height:100%; border-radius: 10px; object-fit: cover;">
+                        </div>
+                        <div>
+                            <h3 style="color: var(--rich-brown); font-size: 28px; margin-bottom: 25px;">What's Included</h3>
+                            <div class="card" style="margin-bottom: 20px;">
+                                <h4 style="color: var(--mahjong-teal); margin-bottom: 10px;">144 Premium Tiles</h4>
+                                <p>Traditional mahjong configuration with South Asian aesthetic touches. High-quality materials, smooth finish, beautiful to hold and play.</p>
+                            </div>
+                            <div class="card" style="margin-bottom: 20px;">
+                                <h4 style="color: var(--mahjong-teal); margin-bottom: 10px;">Cultural Acknowledgment</h4>
+                                <p>Inside lid features the full story—honoring Chinese origins, Jewish-American evolution, and our welcome to new communities.</p>
+                            </div>
+                            <div class="card" style="margin-bottom: 20px;">
+                                <h4 style="color: var(--mahjong-teal); margin-bottom: 10px;">Complete Rulebook</h4>
+                                <p>Instructions for both classical and American mahjong, with strategy tips and cultural context.</p>
+                            </div>
+                            <a href="#shop-page" class="btn btn-primary btn-large" data-page-id="shop-page">Shop Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Mahjong Section -->
+            <div class="page-section section-alt">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Why Mahjong?</h2>
+                        <p class="subtitle">More than a game—a ritual of gathering</p>
+                    </div>
+                    <div class="grid-3">
+                        <div class="card">
+                            <div style="font-size: 48px; text-align: center; margin-bottom: 20px; color: var(--chai-gold);">🤝</div>
+                            <h3 style="text-align: center;">Multigenerational</h3>
+                            <p style="text-align: center;">
+                                From grandparents who've played for decades to grandchildren learning their first hand—mahjong bridges generations naturally.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <div style="font-size: 48px; text-align: center; margin-bottom: 20px; color: var(--chai-gold);">☕</div>
+                            <h3 style="text-align: center;">Hospitality</h3>
+                            <p style="text-align: center;">
+                                Played alongside chai or coffee, with snacks and conversation—mahjong is as much about hosting as it is about playing.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <div style="font-size: 48px; text-align: center; margin-bottom: 20px; color: var(--chai-gold);">🧠</div>
+                            <h3 style="text-align: center;">Strategy & Luck</h3>
+                            <p style="text-align: center;">
+                                The perfect blend of intellectual challenge and chance. Every game is different. Every table tells a story.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Testimonials -->
+            <div class="page-section section-gradient">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Join the Community</h2>
+                        <p class="subtitle">Tables around the world are gathering</p>
+                    </div>
+                    <div class="grid-2" style="max-width: 1000px; margin: 0 auto; align-items: start;">
+                        <div class="card" style="background-color: white;">
+                            <p style="font-style: italic; color: var(--medium-gray); margin-bottom: 15px;">
+                                "These tiles feel like they belong on our table. The design is beautiful, and knowing the cultural care that went into creating them makes every game more meaningful."
+                            </p>
+                            <p style="color: var(--chai-gold); font-weight: 600;">— Priya M., California</p>
+                        </div>
+                        <div class="card" style="background-color: white;">
+                            <p style="font-style: italic; color: var(--medium-gray); margin-bottom: 15px;">
+                                "Finally, a mahjong set that understands hospitality the way we do. My grandmother loves teaching us with these tiles—they spark conversations about culture and connection."
+                            </p>
+                            <p style="color: var(--chai-gold); font-weight: 600;">— Amir K., New York</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="page-section bg-teal" style="padding: 100px 0; text-align: center;">
+                <div class="container">
+                    <h2 style="font-size: 48px; margin-bottom: 20px; color: var(--warm-white);">Welcome to the Table</h2>
+                    <p style="font-size: 24px; margin-bottom: 40px; font-style: italic; color: var(--mazaa-cream);">
+                        Tiles that feel familiar. Traditions that feel welcoming.
+                    </p>
+                    <a href="#shop-page" class="btn btn-primary btn-large" data-page-id="shop-page">Shop Mahjong Mazaa</a>
+                    <a href="#how-to-play-page" class="btn btn-secondary btn-large" style="margin-left: 15px; border-color: var(--warm-white); color: var(--warm-white);" data-page-id="how-to-play-page">Learn to Play</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 2. OUR STORY PAGE CONTENT (our-story.html) -->
+        <!-- ============================================== -->
+        <section id="our-story-page" class="page-content">
+            <div class="hero hero-small">
+                <div class="container">
+                    <h1>Our Story</h1>
+                    <p class="subtitle">The bridge, not the claim</p>
+                    <p>
+                        Why Mahjong Mazaa exists, what we stand for,<br>
+                        and how we're building a cultural bridge through play.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Introduction -->
+            <div class="page-section section-alt">
+                <div class="container" style="max-width: 900px;">
+                    <div class="quote-block">
+                        "We're not claiming mahjong. We're hosting it."
+                    </div>
+                    <p style="font-size: 20px; line-height: 1.8; color: var(--medium-gray); text-align: center;">
+                        Mahjong Mazaa was born from a simple realization: mahjong is a game that knows how to find its way home, no matter whose table it lands on. From Chinese teahouses to Jewish living rooms to South Asian gatherings—this game has always been about community, strategy, and the ritual of coming together.
+                    </p>
+                </div>
+            </div>
+
+            <!-- What We Are -->
+            <div class="page-section section-gradient">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>What Mahjong Mazaa Is</h2>
+                    </div>
+                    <div class="grid-2" style="max-width: 1000px; margin: 0 auto; align-items: center;">
+                        <div class="image-placeholder" style="height: auto; padding: 0; background: none; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                            <img src="MM_Tiles_ChaiCoffee_StillLife_v01.jpg" alt="Mahjong Mazaa tiles with chai and coffee" style="width:100%; height:auto; border-radius: 10px; object-fit: cover;">
+                        </div>
+                        <div>
+                            <h3 style="color: var(--mahjong-teal); font-size: 26px; margin-bottom: 20px;">A Cultural Bridge</h3>
+                            <p style="font-size: 18px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 20px;">
+                                Mahjong Mazaa is a tile set designed with South Asian aesthetics—warm colors, culturally resonant patterns, and an invitation to gather. But we're not reinventing the game. The tiles are still Dots, Bams, and Cracks. The rules are still the rules. The strategy is still the strategy.
+                            </p>
+                            <p style="font-size: 18px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 20px;">
+                                What's different is the feeling. These tiles feel at home on South Asian tables. They belong alongside chai or coffee, amidst multigenerational conversations, in spaces where hospitality isn't just offered—it's woven into the fabric of gathering.
+                            </p>
+                            <p style="font-size: 18px; line-height: 1.8; color: var(--medium-gray);">
+                                We're not claiming mahjong as "ours." We're creating tiles that let South Asian communities feel seen, welcomed, and invited to participate in a tradition that has always crossed cultural boundaries.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- What We're Not -->
+            <div class="page-section section-alt">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>What Mahjong Mazaa Is Not</h2>
+                        <p class="subtitle">Clarity matters</p>
+                    </div>
+                    <div class="grid-2" style="max-width: 1000px; margin: 0 auto; gap: 30px;">
+                        <div class="card card-feature">
+                            <h3>Not Appropriation</h3>
+                            <p>
+                                We're not taking mahjong, renaming it, and pretending it's South Asian. We honor its Chinese origins explicitly. We name its complicated American history honestly. And we position ourselves as hosts, not owners.
+                            </p>
+                        </div>
+                        <div class="card card-feature">
+                            <h3>Not a Reinvention</h3>
+                            <p>
+                                We're not "modernizing" or "improving" mahjong. This game doesn't need fixing. It's been played and beloved for over 150 years. We're simply offering an aesthetic that feels resonant to a new community.
+                            </p>
+                        </div>
+                        <div class="card card-feature">
+                            <h3>Not Erasure</h3>
+                            <p>
+                                We don't skip over the racism of the 1920s American fad. We don't gloss over Orientalist marketing. We don't minimize the identity-building work of Jewish women in the 1930s-50s. All of this matters.
+                            </p>
+                        </div>
+                        <div class="card card-feature">
+                            <h3>Not Exclusive</h3>
+                            <p>
+                                These tiles aren't "only for South Asians." They're for anyone who appreciates the aesthetic, the cultural care, and the invitation to gather. Mahjong has always been a game that welcomes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ornament">⁂</div>
+
+            <!-- Our Principles -->
+            <div class="page-section section-gradient">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Our Guiding Principles</h2>
+                    </div>
+                    <div style="max-width: 900px; margin: 0 auto;">
+                        <div class="card" style="margin-bottom: 30px; background-color: white;">
+                            <h3 style="color: var(--chai-gold); margin-bottom: 15px;">1. We Honor Origins</h3>
+                            <p style="font-size: 17px; line-height: 1.7;">
+                                Mahjong was born in Southern China in the mid-1800s. That's where this story begins, and we never let anyone forget it. Every tile set includes the full history—not sanitized, not simplified, but told with care and respect.
+                            </p>
+                        </div>
+                        
+                        <div class="card" style="margin-bottom: 30px; background-color: white;">
+                            <h3 style="color: var(--chai-gold); margin-bottom: 15px;">2. We Acknowledge Complexity</h3>
+                            <p style="font-size: 17px; line-height: 1.7;">
+                                The 1920s American mahjong fad was steeped in racism and Orientalism. Jewish women in the 1930s created powerful community through the game while navigating their own experiences of marginalization. These aren't footnotes—they're essential parts of the story.
+                            </p>
+                        </div>
+                        
+                        <div class="card" style="margin-bottom: 30px; background-color: white;">
+                            <h3 style="color: var(--chai-gold); margin-bottom: 15px;">3. We Welcome Through Resonance</h3>
+                            <p style="font-size: 17px; line-height: 1.7;">
+                                South Asian communities deserve to see themselves reflected in the games they play—not through appropriation, but through thoughtful design that invites them to the table. Cultural resonance isn't ownership; it's hospitality.
+                            </p>
+                        </div>
+                        
+                        <div class="card" style="margin-bottom: 30px; background-color: white;">
+                            <h3 style="color: var(--chai-gold); margin-bottom: 15px;">4. We Stay Humble</h3>
+                            <p style="font-size: 17px; line-height: 1.7;">
+                                When we make mistakes (and we will), we listen, we learn, and we correct course. This is delicate work. Cultural bridge-building requires constant care, humility, and willingness to be accountable to the communities we serve and honor.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Who We Serve -->
+            <div class="page-section section-alt">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Who We're For</h2>
+                        <p class="subtitle">Tables that want to gather</p>
+                    </div>
+                    <div class="grid-3">
+                        <div class="card">
+                            <h3>South Asian Families</h3>
+                            <p>
+                                Who want to play mahjong with tiles that feel culturally familiar—designed with aesthetics that resonate with their own traditions of gathering and hospitality.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>Curious Players</h3>
+                            <p>
+                                Who appreciate the cultural care we've taken and want to support thoughtful, bridge-building work. People who value story as much as strategy.
+                            </p>
+                        </div>
+                        <div class="card">
+                            <h3>Gift-Givers</h3>
+                            <p>
+                                Looking for something meaningful—a tile set that comes with context, respect, and an invitation to create new traditions while honoring old ones.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- The Promise -->
+            <div class="page-section section-gradient">
+                <div class="container" style="max-width: 900px; text-align: center;">
+                    <img src="MM_Founder_BehindScenes.jpg" alt="Behind the scenes at Mahjong Mazaa" style="max-width: 600px; height: auto; margin: 0 auto 40px; display: block; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                    <h2 style="font-size: 42px; color: var(--rich-brown); margin-bottom: 30px;">Our Promise</h2>
+                    <p style="font-size: 20px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 40px;">
+                        We promise to never erase the histories that came before us. We promise to be transparent about our positioning as a cultural bridge. We promise to listen when communities tell us we've missed the mark. And we promise that every tile set will include the full story—because context matters, history matters, and honoring origins is non-negotiable.
+                    </p>
+                    <p style="font-size: 24px; font-style: italic; color: var(--chai-gold); margin-bottom: 40px;">
+                        This is a game that has always known how to cross borders.<br>
+                        We're just making sure the door stays open.
+                    </p>
+                    <a href="#shop-page" class="btn btn-primary btn-large" data-page-id="shop-page">Shop Our Tiles</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 3. THE HISTORY PAGE CONTENT (the-history.html) -->
+        <!-- ============================================== -->
+        <section id="the-history-page" class="page-content">
+             <div class="hero hero-small">
+                <div class="container">
+                    <img src="MM_SingleTile_CloseUp_v01.jpg" alt="Close-up of Mahjong Mazaa tile" style="max-width: 400px; height: auto; margin: 0 auto 30px; display: block; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                    <h1>The History We Honor</h1>
+                    <p class="subtitle">A game that crosses cultures and centuries</p>
+                    <p>
+                        From Chinese teahouses to American living rooms to tables around the world—<br>
+                        this is the story of how mahjong became a global phenomenon.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Introduction -->
+            <div class="page-section section-alt">
+                <div class="container" style="max-width: 900px;">
+                    <p style="font-size: 20px; line-height: 1.8; color: var(--medium-gray); text-align: center; margin-bottom: 30px;">
+                        Mahjong's journey is not simple. It's a story of cultural exchange, appropriation, community-building, and adaptation. Understanding this history is essential to understanding why Mahjong Mazaa exists—and how we position ourselves as a bridge, not a claim.
+                    </p>
+                    <p style="font-size: 18px; line-height: 1.8; color: var(--chai-gold); text-align: center; font-style: italic;">
+                        We don't erase the problematic moments. We honor the full story.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="page-section section-gradient">
+                <div class="container">
+                    <div class="timeline">
+                        <!-- Mid-1800s -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">Mid-1800s</div>
+                            <div class="timeline-content">
+                                <h3>Origins in China</h3>
+                                <p>
+                                    Mahjong emerges in Southern China toward the end of the Qing Dynasty (1644–1912). It likely evolved from earlier card games like madiao. The game first appeared in print in 19th-century Chinese literature.
+                                </p>
+                                <p>
+                                    Initially a pastime for Chinese aristocrats, it gradually spread to the general public. The name "mahjong" (麻將/麻雀) means "sparrow" in southern Chinese dialects, referring to the bird-like clacking sound the tiles make during reshuffling.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 1920 -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">1920</div>
+                            <div class="timeline-content">
+                                <h3>American Arrival & The Complicated Fad</h3>
+                                <p>
+                                    American businessman Joseph Park Babcock, living in Shanghai, brought mahjong to the United States. He simplified the rules and published "Rules of Mah-Jongg," making it more accessible to Western audiences.
+                                </p>
+                                <p>
+                                    The game became an enormous national fad, particularly among wealthy white women. However, the story was complicated by racism and Orientalism. Marketers falsely claimed mahjong was thousands of years old, played by "ancient Chinese court" members.
+                                </p>
+                                <p>
+                                    <strong>This is the tension Mahjong Mazaa acknowledges:</strong> a beautiful game marred by racist marketing and appropriation.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 1920s-1930s -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">1920s-1930s</div>
+                            <div class="timeline-content">
+                                <h3>Chinese Americans & Cultural Bonding</h3>
+                                <p>
+                                    While white Americans played mahjong as an exotic fad, Chinese Americans used the game for authentic cultural connection. Mahjong became central to cultural bonding in Chinatowns across America, particularly in Manhattan.
+                                </p>
+                                <p>
+                                    The game served as a powerful link to homeland traditions and helped maintain community identity during a period of intense discrimination and exclusion.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 1937 -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">1937</div>
+                            <div class="timeline-content">
+                                <h3>Jewish Women & The National Mah Jongg League</h3>
+                                <p>
+                                    Jewish women—many of them children of Eastern European immigrants—formed the National Mah Jongg League (NMJL). They standardized American Mahjong with unique rules including Jokers, the "Charleston" (tile passing), and an annual card of approved hands.
+                                </p>
+                                <p>
+                                    This wasn't just about gameplay. For Jewish women experiencing newfound upward mobility and suburban assimilation after World War II, mahjong became an identity marker—a way to maintain cultural connection while navigating whiteness and belonging.
+                                </p>
+                                <p>
+                                    <strong>This history matters to Mahjong Mazaa</strong> because it shows how marginalized communities have used mahjong to create belonging—something we aim to continue, not appropriate.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 1940s-1950s -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">1940s-1950s</div>
+                            <div class="timeline-content">
+                                <h3>African American Women & Community Building</h3>
+                                <p>
+                                    Mahjong also served as a crucial community-building exercise for African American clubwomen in the urban North and Midwest. These groups used the game to create social networks and intellectual gathering spaces during a period of limited public access.
+                                </p>
+                                <p>
+                                    Additionally, incarcerated Japanese Americans during World War II played mahjong as a way to maintain cultural connection and community during internment.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- 1960s-1980s -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">1960s-1980s</div>
+                            <div class="timeline-content">
+                                <h3>Solidification & Global Spread</h3>
+                                <p>
+                                    While the fad among white Americans evaporated by the end of the "roaring twenties," the game remained a beloved pastime in Chinese and Jewish families. It also spread across Asia with unique variations: Riichi Mahjong in Japan, and distinct styles in Vietnam, Singapore, Malaysia, and the Philippines.
+                                </p>
+                                <p>
+                                    There are now 40+ variants of mahjong worldwide, with 30+ in mainland China alone. This adaptability is by design—the game belongs to the communities who play it.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Today -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">Today</div>
+                            <div class="timeline-content">
+                                <h3>A Global Gathering</h3>
+                                <p>
+                                    Mahjong remains beloved in Chinese families worldwide, passed down through generations as a link to cultural heritage. It continues to be a defining game for Jewish-American communities, particularly in suburban areas and retirement communities.
+                                </p>
+                                <p>
+                                    <strong>Now, Mahjong Mazaa enters the story.</strong> We're not the first to adapt mahjong, and we won't be the last. But we enter with transparency: acknowledging the Chinese origins, respecting the Jewish-American evolution, being honest about the racism of the 1920s fad, and welcoming South Asian communities through culturally resonant design.
+                                </p>
+                                <p style="font-style: italic; color: var(--chai-gold);">
+                                    The game continues its journey. We're honored to host it.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ornament">⁂</div>
+
+            <!-- Key Takeaways -->
+            <div class="page-section section-alt">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>What This History Teaches Us</h2>
+                    </div>
+                    <div class="grid-3">
+                        <div class="card card-feature">
+                            <h3>Complexity Matters</h3>
+                            <p>
+                                Mahjong's history is not simple. It includes beauty and racism, community-building and appropriation, tradition and evolution. We don't get to pick and choose—we honor it all.
+                            </p>
+                        </div>
+                        <div class="card card-feature">
+                            <h3>Marginalized Communities Found Belonging</h3>
+                            <p>
+                                Chinese immigrants, Jewish women, African American clubwomen, and incarcerated Japanese Americans all used mahjong to create community during difficult times. This pattern of gathering is what we continue.
+                            </p>
+                        </div>
+                        <div class="card card-feature">
+                            <h3>Games Cross Borders</h3>
+                            <p>
+                                Mahjong adapted wherever it landed. That's not erasure—it's the nature of cultural exchange when done with respect. Our job is to make sure that respect is always present.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 4. HOW TO PLAY PAGE CONTENT (how-to-play.html) -->
+        <!-- ============================================== -->
+        <section id="how-to-play-page" class="page-content">
+             <div class="hero hero-small">
+                <div class="container">
+                    <img src="MM_Ritual_SetUpScene.jpg" alt="Mahjong game setup scene" style="max-width: 600px; height: auto; margin: 0 auto 30px; display: block; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                    <h1>How to Play Mahjong</h1>
+                    <p class="subtitle">A game of skill, strategy, and luck</p>
+                    <p>
+                        Whether you're completely new or brushing up on the rules,<br>
+                        this guide will help you start playing.
+                    </p>
+                </div>
+            </div>
+
+            <div class="page-section section-alt">
+                <div class="container" style="max-width: 900px;">
+                    <h2 style="font-size: 42px; color: var(--rich-brown); text-align: center; margin-bottom: 30px;">The Basics</h2>
+                    <p style="font-size: 18px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 30px;">
+                        Mahjong is a four-player game that blends skill and chance, similar to gin rummy or poker. The goal is to build a complete hand of 14 tiles by drawing and discarding tiles throughout the game.
+                    </p>
+                    <div class="grid-2" style="gap: 30px; align-items: stretch;">
+                        <div class="card">
+                            <h3>Players</h3>
+                            <p>4 players (though variants exist for 2-3 players)</p>
+                        </div>
+                        <div class="card">
+                            <h3>Tiles</h3>
+                            <p>144 tiles total in standard set</p>
+                        </div>
+                        <div class="card">
+                            <h3>Duration</h3>
+                            <p>30-60 minutes per game</p>
+                        </div>
+                        <div class="card">
+                            <h3>Objective</h3>
+                            <p>Build a winning hand of 14 tiles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-section section-gradient">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>The Tiles</h2>
+                        <p class="subtitle">Understanding what you're playing with</p>
+                    </div>
+                    <div class="grid-3">
+                        <div class="card">
+                            <h3>Suits (108 tiles)</h3>
+                            <ul class="styled-list">
+                                <li><strong>Bamboos:</strong> numbered 1-9 (36 tiles)</li>
+                                <li><strong>Characters:</strong> numbered 1-9 (36 tiles)</li>
+                                <li><strong>Dots/Circles:</strong> numbered 1-9 (36 tiles)</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Honor Tiles (28 tiles)</h3>
+                            <ul class="styled-list">
+                                <li><strong>Winds:</strong> East, South, West, North (16 tiles)</li>
+                                <li><strong>Dragons:</strong> Red, Green, White (12 tiles)</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3>Bonus Tiles (8 tiles)</h3>
+                            <ul class="styled-list">
+                                <li><strong>Flowers:</strong> Plum, Orchid, Chrysanthemum, Bamboo</li>
+                                <li><strong>Seasons:</strong> Spring, Summer, Fall, Winter</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-section section-alt">
+                <div class="container" style="max-width: 900px;">
+                    <h2 style="font-size: 42px; color: var(--rich-brown); text-align: center; margin-bottom: 40px;">Basic Gameplay</h2>
+                    
+                    <div class="card" style="margin-bottom: 25px;">
+                        <h3 style="color: var(--chai-gold);">1. Setup & Deal</h3>
+                        <p>Build walls with all tiles face-down. Each player receives 13 tiles. The dealer starts with 14 tiles.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 25px;">
+                        <h3 style="color: var(--chai-gold);">2. Draw & Discard</h3>
+                        <p>On your turn, draw one tile from the wall. If you don't need it, discard one tile face-up to the center. The goal is to organize your hand into sets.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 25px;">
+                        <h3 style="color: var(--chai-gold);">3. Build Sets</h3>
+                        <p>Create combinations:</p>
+                        <ul class="styled-list">
+                            <li><strong>Pong:</strong> Three identical tiles</li>
+                            <li><strong>Kong:</strong> Four identical tiles</li>
+                            <li><strong>Chow:</strong> Three consecutive tiles of the same suit</li>
+                        </ul>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 25px;">
+                        <h3 style="color: var(--chai-gold);">4. Winning Hand</h3>
+                        <p>A complete winning hand usually consists of four sets plus one pair (14 tiles total). Declare "Mahjong!" when you complete your hand.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="color: var(--chai-gold);">5. Scoring</h3>
+                        <p>Points are awarded based on the hand's composition and difficulty. Different variants have different scoring systems.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-section section-gradient">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Choosing Your Variant</h2>
+                        <p class="subtitle">There are many ways to play mahjong</p>
+                    </div>
+                    <div class="grid-2" style="max-width: 1000px; margin: 0 auto; align-items: stretch;">
+                        <div class="card card-feature">
+                            <h3>Classical/Chinese Mahjong</h3>
+                            <p style="margin-bottom: 15px;">
+                                The original version from China. More flexible rules, various regional differences. Played widely across Asia.
+                            </p>
+                            <ul class="styled-list" style="font-size: 15px;">
+                                <li>Standard 144 tiles</li>
+                                <li>Flexible hand patterns</li>
+                                <li>Complex scoring system</li>
+                                <li>Regional variations common</li>
+                            </ul>
+                        </div>
+                        <div class="card card-feature">
+                            <h3>American Mahjong</h3>
+                            <p style="margin-bottom: 15px;">
+                                Created by the National Mah Jongg League in 1937. Uses an annual card with approved hand patterns.
+                            </p>
+                            <ul class="styled-list" style="font-size: 15px;">
+                                <li>Includes Joker tiles (wild cards)</li>
+                                <li>"Charleston" (tile passing ritual)</li>
+                                <li>Annual card with approved hands</li>
+                                <li>Popular in Jewish-American communities</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-section section-alt">
+                <div class="container" style="max-width: 900px; text-align: center;">
+                    <h2 style="font-size: 42px; color: var(--rich-brown); margin-bottom: 20px;">Ready to Play?</h2>
+                    <p style="font-size: 20px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 40px;">
+                        Every Mahjong Mazaa tile set includes a comprehensive rulebook with step-by-step instructions, visual guides, and strategy tips for both classical and American mahjong.
+                    </p>
+                    <a href="#shop-page" class="btn btn-primary btn-large" data-page-id="shop-page">Get Your Tile Set</a>
+                    <a href="#community-page" class="btn btn-secondary btn-large" style="margin-left: 15px;" data-page-id="community-page">Join Our Community</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 5. SHOP PAGE CONTENT (shop.html) -->
+        <!-- ============================================== -->
+        <section id="shop-page" class="page-content">
+             <div class="hero hero-small">
+                <div class="container">
+                    <h1>Shop Mahjong Mazaa</h1>
+                    <p class="subtitle">Curated tile sets and accessories</p>
+                    <p>Thoughtfully designed, premium quality, and ready to gather your table.<br>Pre-order your set today!</p>
+                </div>
+            </div>
+
+            <!-- Main Tile Set -->
+            <div class="page-section section-alt" id="tile-sets">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>The Signature Collection</h2>
+                        <p class="subtitle">The Mahjong Mazaa Tile Set</p>
+                        <p>The original tile set that serves as a cultural bridge. Premium tiles, beautiful carrying case, and complete cultural context included.</p>
+                    </div>
+                    
+                    <div class="grid-2" style="max-width: 1000px; margin: 0 auto; gap: 40px; align-items: center;">
+                        <!-- Product Image -->
+                        <div class="image-placeholder" style="height: 450px; padding: 0; background: none;">
+                            <img src="MM_CompleteKit_FlatLay_v01.jpg" alt="Signature Mahjong Mazaa Set in Case" style="width:100%; height:100%; border-radius: 10px; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                        </div>
+                        
+                        <!-- Product Details -->
+                        <div>
+                            <h3 style="color: var(--mahjong-teal); font-size: 32px; margin-bottom: 10px;">The Chai Gold Edition</h3>
+                            <p class="price">$249.00 USD</p>
+                            
+                            <p class="product-description" style="margin-bottom: 20px;">
+                                This is our definitive collection. Featuring 144 weighted tiles in our signature Mazaa Cream and Chai Gold palette, this set is built to last generations. Includes a full-size rulebook covering both Classical and American variants.
+                            </p>
+                            
+                            <ul class="styled-list" style="margin-bottom: 30px;">
+                                <li>144 High-Density Tiles (incl. Jokers and Blanks)</li>
+                                <li>Durable, Custom Carrying Case</li>
+                                <li>Full Cultural History & Rulebook</li>
+                                <li>Matching Dice and Scoring Sticks</li>
+                            </ul>
+                            
+                            <a href="#" class="btn btn-primary btn-large">Pre-Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessories -->
+            <div class="page-section section-gradient" id="accessories">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Accessories & Gifts</h2>
+                        <p class="subtitle">Enhance your mahjong table</p>
+                    </div>
+                    
+                    <div class="grid-3">
+                        <div class="product-card">
+                            <img src="MM_TileBreakdown_Suits_v01.jpg" alt="Mahjong Tile Suits Breakdown" style="width:100%; height:auto; border-radius: 10px;">
+                            <h3>Custom Tile Bags (Set of 4)</h3>
+                            <p class="price">$45.00 USD</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                        
+                        <div class="product-card">
+                            <img src="MM_Accessory_Showcase_v01.jpg" alt="Mahjong Accessory Showcase" style="width:100%; height:auto; border-radius: 10px;">
+                            <h3>Premium Score Pads (5-Pack)</h3>
+                            <p class="price">$20.00 USD</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                        
+                        <div class="product-card">
+                            <img src="MM_Packaging_Unboxing_v01.jpg" alt="Mahjong Mazaa Packaging" style="width:100%; height:auto; border-radius: 10px;">
+                            <h3>Chai & Chat Mug Set</h3>
+                            <p class="price">$55.00 USD</p>
+                            <a href="#" class="btn btn-secondary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pre-Order CTA (Mock Form) -->
+            <div class="page-section section-alt">
+                <div class="container" style="max-width: 900px; text-align: center;">
+                    <h2 style="font-size: 42px; color: var(--rich-brown); margin-bottom: 30px;">Be the First to Play</h2>
+                    <p style="font-size: 20px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 40px;">
+                        Our first batch is selling out quickly! Join the waitlist and secure your set by pre-ordering today.
+                    </p>
+                    <div class="card" style="max-width: 500px; margin: 0 auto; background-color: var(--mazaa-cream);">
+                        <h3 style="color: var(--mahjong-teal); margin-bottom: 20px;">Join the Waitlist</h3>
+                        <p style="margin-bottom: 20px; font-size: 16px; color: var(--rich-brown);">Enter your email for pre-order updates and exclusive offers.</p>
+                        <form id="preOrderForm">
+                            <input type="hidden" name="formType" value="PreOrderEmail">
+                            <div class="form-group">
+                                <input type="email" placeholder="Your email address" id="email" name="email" required>
+                            </div>
+                            <!-- Placeholder div for status messages -->
+                            <div id="statusMessage" style="margin-bottom: 15px;"></div> 
+                            <button type="submit" class="btn btn-primary btn-large">Notify Me</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 6. COMMUNITY PAGE CONTENT (community.html) -->
+        <!-- ============================================== -->
+        <section id="community-page" class="page-content">
+             <div class="hero hero-small">
+                <div class="container">
+                    <img src="MM_MazaaNight_Community_v01.jpg" alt="Mahjong Mazaa community gathering" style="max-width: 700px; height: auto; margin: 0 auto 30px; display: block; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                    <h1>Our Community</h1>
+                    <p class="subtitle">Tables that gather. Stories that connect.</p>
+                    <p>Join mahjong enthusiasts building community through cultural respect and hospitality.</p>
+                </div>
+            </div>
+
+            <div class="page-section section-alt">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Community Stories</h2>
+                        <p class="subtitle">Coming soon</p>
+                    </div>
+                    <p style="text-align: center; font-size: 18px; color: var(--medium-gray); max-width: 800px; margin: 0 auto;">
+                        We're building a space to share stories from players around the world—tales of multigenerational gatherings, cultural connection, and the joy of mahjong. Check back soon to read and share your own mahjong moments.
+                    </p>
+                </div>
+            </div>
+
+            <div class="page-section section-gradient">
+                <div class="container" style="max-width: 900px; text-align: center;">
+                    <h2 style="font-size: 42px; color: var(--rich-brown); margin-bottom: 20px;">Share Your Story</h2>
+                    <p style="font-size: 18px; line-height: 1.8; color: var(--medium-gray); margin-bottom: 40px;">
+                        Have a mahjong story to share? We'd love to hear about your table, your traditions, and the connections you've built through this beautiful game.
+                    </p>
+                    <a href="#contact-page" class="btn btn-primary btn-large" data-page-id="contact-page">Get in Touch</a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ============================================== -->
+        <!-- 7. FAQ PAGE CONTENT (faq.html) -->
+        <!-- ============================================== -->
+        <section id="faq-page" class="page-content">
+             <div class="hero hero-small">
+                <div class="container">
+                    <h1>Frequently Asked Questions</h1>
+                    <p class="subtitle">Everything you need to know</p>
+                </div>
+            </div>
+
+            <div class="page-section section-alt">
+                <div class="container" style="max-width: 900px;">
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--mahjong-teal);">Is Mahjong Mazaa appropriating Chinese culture?</h3>
+                        <p>No. We're creating a cultural bridge, not claiming ownership. We explicitly honor mahjong's Chinese origins in all our materials and tell the full, complex history—including the problematic 1920s American fad. We position ourselves as hosts, not owners, welcoming new communities to a tradition that has always crossed cultural boundaries.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--mahjong-teal);">What makes Mahjong Mazaa tiles different?</h3>
+                        <p>The rules and gameplay are identical to traditional mahjong. What's different is the aesthetic—tiles designed with South Asian cultural resonance that feel familiar on South Asian tables. Plus, every set includes the full cultural history inside the lid.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--mahjong-teal);">Can anyone play with Mahjong Mazaa tiles?</h3>
+                        <p>Absolutely! These tiles aren't exclusively for South Asian families. Anyone who appreciates the aesthetic, the cultural care we've taken, and the invitation to gather is welcome at the table.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--mahjong-teal);">What variant of mahjong do you teach?</h3>
+                        <p>Our rulebook includes instructions for both classical/Chinese mahjong and American mahjong, along with guidance on regional variations.</p>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 20px;">
+                        <h3 style="color: var(--mahjong-teal);">When will tiles be available?</h3>
+                        <p>We're finalizing our tile sets now. Sign up on our <a href="#shop-page" style="color: var(--chai-gold);" data-page-id="shop-page">shop page</a> to be notified when pre-orders open.</p>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="color: var(--mahjong-teal);">Have a different question?</h3>
+                        <p><a href="#contact-page" style="color: var(--chai-gold);" data-page-id="contact-page">Contact us</a> and we'll be happy to help!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ============================================== -->
+        <!-- 8. CONTACT PAGE CONTENT (New Section from contact.html) -->
+        <!-- ============================================== -->
+        <section id="contact-page" class="page-content">
+             <div class="hero hero-small">
+                <div class="container">
+                    <h1>Contact Us</h1>
+                    <p class="subtitle">We'd love to hear from you</p>
+                    <p>Questions, feedback, or just want to chat about mahjong?<br>Reach out anytime.</p>
+                </div>
+            </div>
+
+            <div class="page-section section-alt">
+                <div class="container">
+                    <div class="grid-2" style="max-width: 1000px; margin: 0 auto;">
+                        <div>
+                            <h2 style="color: var(--rich-brown); margin-bottom: 20px;">Get in Touch</h2>
+                            <!-- Adapted Form -->
+                            <form id="contactForm">
+                                <input type="hidden" name="formType" value="ContactInquiry">
+                                <div id="contactStatusMessage" style="display: none;"></div>
+                                
+                                <div class="form-group">
+                                    <label for="name">Name *</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email *</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="subject">Subject</label>
+                                    <input type="text" id="subject" name="subject">
+                                </div>
+                                <div class="form-group">
+                                    <label for="message">Message *</label>
+                                    <textarea id="message" name="message" required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-large" id="submitBtn">Send Message</button>
+                            </form>
+                        </div>
+                        <div>
+                            <h2 style="color: var(--rich-brown); margin-bottom: 20px;">Contact Information</h2>
+                            <div class="card" style="margin-bottom: 20px;">
+                                <h3>General Inquiries</h3>
+                                <p><a href="mailto:hello@mahjongmazaa.com" style="color: var(--chai-gold);">hello@mahjongmazaa.com</a></p>
+                            </div>
+                            <div class="card" style="margin-bottom: 20px;">
+                                <h3>Press & Media</h3>
+                                <p><a href="mailto:press@mahjongmazaa.com" style="color: var(--chai-gold);">press@mahjongmazaa.com</a></p>
+                            </div>
+                            <div class="card" style="margin-bottom: 20px;">
+                                <h3>Social Media</h3>
+                                <div class="social-links">
+                                    <a href="#" title="Instagram">📷</a>
+                                    <a href="#" title="Facebook">📘</a>
+                                    <a href="#" title="TikTok">🎵</a>
+                                    <a href="#" title="Pinterest">📌</a>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <h3>Location</h3>
+                                <p>Based in the United States</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <!-- Footer (Static across all "pages") -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mahjong Mazaa</h4>
+                    <img src="MM_Logo_CroppedCircle_TransparentBackground.png" alt="Mahjong Mazaa Logo" style="width: 80px; height: 80px; margin-bottom: 15px; border-radius: 50%;">
+                    <p>
+                        A cultural bridge through play. Honoring Chinese origins, respecting American evolution, welcoming South Asian communities.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" title="Instagram">📷</a>
+                        <a href="#" title="Facebook">📘</a>
+                        <a href="#" title="TikTok">🎵</a>
+                        <a href="#" title="Pinterest">📌</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Explore</h4>
+                    <ul class="footer-links">
+                        <li><a href="#our-story-page" data-page-id="our-story-page">Our Story</a></li>
+                        <li><a href="#the-history-page" data-page-id="the-history-page">The History</a></li>
+                        <li><a href="#how-to-play-page" data-page-id="how-to-play-page">How to Play</a></li>
+                        <li><a href="#community-page" data-page-id="community-page">Community</a></li>
+                        <li><a href="#faq-page" data-page-id="faq-page">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Shop</h4>
+                    <ul class="footer-links">
+                        <li><a href="#shop-page" data-page-id="shop-page">Tile Sets</a></li>
+                        <li><a href="#shop-page" data-page-id="shop-page">Accessories</a></li>
+                        <li><a href="#shop-page" data-page-id="shop-page">Gift Sets</a></li>
+                        <li><a href="#shop-page" data-page-id="shop-page">Pre-Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>
+                        Email: hello@mahjongmazaa.com<br>
+                        Press: press@mahjongmazaa.com<br><br>
+                        Based in the United States
+                    </p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Mahjong Mazaa. The bridge, not the claim. | <a href="#privacy-policy">Privacy Policy</a> | <a href="#terms-of-service">Terms of Service</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Consolidated and updated JavaScript -->
+    <script>
+        // --- Utility Function for Mock User Feedback ---
+        const showStatus = (message, type = 'success', targetId = 'statusMessage') => {
+            const statusDiv = document.getElementById(targetId);
+            if (statusDiv) {
+                statusDiv.textContent = message;
+                statusDiv.className = ''; // Reset classes
+                statusDiv.classList.add('fade-in', type === 'success' ? 'mock-success' : 'mock-error');
+                statusDiv.style.display = 'block';
+                
+                // Hide after 5 seconds
+                setTimeout(() => {
+                    statusDiv.classList.remove('fade-in');
+                    statusDiv.style.display = 'none';
+                }, 5000);
+            }
+        };
+
+
+        // --- Mock Form Submission Handler ---
+        const handleFormSubmissionMock = (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const formTypeInput = form.querySelector('input[name="formType"]');
+            const formType = formTypeInput ? formTypeInput.value : 'PreOrderEmail';
+            const statusMessageId = form.id === 'contactForm' ? 'contactStatusMessage' : 'statusMessage';
+
+            // Simple required field check (visual feedback)
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.style.borderColor = 'var(--soft-terracotta)';
+                } else {
+                    field.style.borderColor = 'var(--mazaa-cream)';
+                }
+            });
+
+            if (!isValid) {
+                showStatus('Please fill in all required fields to proceed with the mockup submission.', 'error', statusMessageId);
+                return;
+            }
+
+            // MOCK RESPONSE
+            if (submitBtn) submitBtn.textContent = 'Submitting...';
+            if (submitBtn) submitBtn.disabled = true;
+
+            // Simulate Network Latency
+            setTimeout(() => {
+                showStatus(`MOCK SUCCESS! Your ${formType} has been received for this demonstration.`, 'success', statusMessageId);
+                form.reset();
+                
+                if (submitBtn) submitBtn.textContent = formType === 'PreOrderEmail' ? 'Notify Me' : 'Send Message';
+                if (submitBtn) submitVtn.disabled = false;
+            }, 800);
+        };
+        
+        // --- Core Navigation Logic ---
+        const setActivePage = (pageId) => {
+            // 1. Hide all pages
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // 2. Show the target page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0); // Scroll to top of the new page content
+            }
+            
+            // 3. Update active link state
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.classList.remove('active-link');
+                if (link.dataset.pageId === pageId) {
+                    link.classList.add('active-link');
+                }
+                // Handle the button style contact link
+                if (pageId === 'contact-page' && link.classList.contains('btn')) {
+                    link.classList.add('active-link');
+                } else if (pageId !== 'contact-page' && link.classList.contains('btn') && link.dataset.pageId === 'contact-page') {
+                    link.classList.remove('active-link');
+                }
+            });
+        };
+        
+        const handleNavigation = (e) => {
+            const link = e.target.closest('a[data-page-id]');
+            if (link) {
+                e.preventDefault();
+                const pageId = link.dataset.pageId;
+                // Update history state so back button works
+                history.pushState(null, '', link.getAttribute('href'));
+                setActivePage(pageId);
+                // Close mobile menu
+                const navLinks = document.querySelector('.nav-links');
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+            } else if (e.target.tagName === 'A' && e.target.getAttribute('href')?.startsWith('#')) {
+                // Handle non-SPA anchor links (e.g., #accessories inside shop)
+                // Default smooth scroll handling
+                const targetId = e.target.getAttribute('href').substring(1);
+                const target = document.getElementById(targetId);
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }
+        };
+
+
+        // --- Core DOM Ready Logic ---
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // 1. Mobile Menu Toggle
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (mobileMenuToggle) {
+                mobileMenuToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            
+            // 2. Global Navigation Handler
+            document.querySelector('header').addEventListener('click', handleNavigation);
+            document.querySelector('main').addEventListener('click', handleNavigation);
+            document.querySelector('footer').addEventListener('click', handleNavigation);
+            
+            // 3. Set initial page state based on URL hash or default to home
+            const initialHash = window.location.hash.replace('#', '');
+            const defaultPage = 'home-page';
+            const startPage = document.getElementById(initialHash) ? initialHash : defaultPage;
+            
+            setActivePage(startPage);
+
+            // Back/Forward button support
+            window.addEventListener('popstate', () => {
+                const newHash = window.location.hash.replace('#', '');
+                const targetPage = document.getElementById(newHash) ? newHash : defaultPage;
+                setActivePage(targetPage);
+            });
+            
+            // 4. Fade-in Animation on Scroll (Still works but less relevant in full SPA view)
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -100px 0px' };
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                        // No unobserve needed for mock SPA view
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.card, .grid-2, .grid-3, .grid-4, .timeline-item').forEach(el => {
+                observer.observe(el);
+            });
+            
+            // 5. MOCK Form Submission Handlers
+            const allForms = document.querySelectorAll('form');
+            allForms.forEach(form => {
+                form.addEventListener('submit', handleFormSubmissionMock);
+            });
+            
+            // 6. Inject Mock Status Message for Contact Form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm && !document.getElementById('contactStatusMessage')) {
+                const statusDiv = document.createElement('div');
+                statusDiv.id = 'contactStatusMessage';
+                contactForm.prepend(statusDiv);
+            }
+            // 7. Inject Mock Status Message for Shop Form
+            const shopForm = document.getElementById('preOrderForm');
+            if (shopForm && !document.getElementById('statusMessage')) {
+                const statusDiv = document.createElement('div');
+                statusDiv.id = 'statusMessage';
+                shopForm.prepend(statusDiv);
+            }
+        });
+    </script>
+</body>
+</html>
+
